@@ -27,7 +27,13 @@ steps:
     msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Visual Studio Enterprise(1)(398203e5-596e-4058-95c9-f5ee030e54d4)'
+    appType: 'webApp'
+    appName: 'test-app'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
