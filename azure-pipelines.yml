@@ -28,18 +28,13 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
     azureSubscription: 'Visual Studio Enterprise(1)(398203e5-596e-4058-95c9-f5ee030e54d4)'
     appType: 'webApp'
     WebAppName: 'test-app7858'
-    packageForLinux: 'D:\a\1\a\*.zip'
+    packageForLinux: '$(build.artifactStagingDirectory)\WebApp.zip'
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
